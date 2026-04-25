@@ -8,7 +8,8 @@
   },
   "files": [
     "bin",
-    "template"
+    "template",
+    "README.md"
   ],
   "keywords": [
     "express",
