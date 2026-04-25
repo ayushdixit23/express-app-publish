@@ -1,0 +1,27 @@
+{
+  "name": "create-express-mongodb-ts-starter",
+  "version": "1.0.0",
+  "description": "Scaffold a new Express + MongoDB + TypeScript project",
+  "main": "bin/index.js",
+  "bin": {
+    "create-express-mongodb-ts-starter": "./bin/index.js"
+  },
+  "type": "module",
+  "files": [
+    "bin",
+    "template"
+  ],
+  "keywords": [
+    "express",
+    "mongodb",
+    "typescript",
+    "starter",
+    "template",
+    "scaffold"
+  ],
+  "author": "",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
