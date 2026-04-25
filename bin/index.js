@@ -1,9 +1,9 @@
-#!/usr/bin/env node
-
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { spawn } from 'child_process';
+import chalk from 'chalk';
+import ora from 'ora';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -11,9 +11,10 @@ const __dirname = path.dirname(__filename);
 const projectName = process.argv[2];
 
 if (!projectName) {
-  console.error('Please specify the project name:');
-  console.error('  npx create-express-mongodb-ts-starter my-app');
-  console.error('  npm create express-mongodb-ts-starter my-app');
+  console.log(chalk.bgRed.bold(' Error '));
+  console.error(chalk.red('Please specify the project name:'));
+  console.log(chalk.cyan('  npx create-express-mongodb-ts-starter my-app'));
+  console.log(chalk.cyan('  npm create express-mongodb-ts-starter my-app'));
   process.exit(1);
 }
 
@@ -21,11 +22,13 @@ const currentDir = process.cwd();
 const projectDir = path.resolve(currentDir, projectName);
 
 if (fs.existsSync(projectDir)) {
-  console.error(`Directory "${projectName}" already exists.`);
+  console.log(chalk.bgRed.bold(' Error '));
+  console.error(chalk.red(`Directory "${projectName}" already exists.`));
   process.exit(1);
 }
 
-console.log(`Creating project: ${projectName}...`);
+console.log(chalk.bgCyan.bold(' Creating ') + chalk.white(` ${projectName} `));
+console.log();
 
 fs.mkdirSync(projectDir, { recursive: true });
 
@@ -49,6 +52,9 @@ function copyDir(src, dest) {
 
 copyDir(templateDir, projectDir);
 
+const spinner = ora(chalk.cyan('Copying template files...')).start();
+spinner.succeed(chalk.green('✓ Files created successfully!'));
+
 const dotFilesToRename = ['gitignore', 'prettierrc'];
 
 for (const file of dotFilesToRename) {
@@ -65,24 +71,35 @@ packageJson.name = projectName;
 packageJson.description = `Express + MongoDB + TypeScript starter - ${projectName}`;
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
-console.log('Installing dependencies...');
+const installSpinner = ora(chalk.cyan('Installing dependencies...')).start();
 
-const installProcess = spawn('npm', ['install', '--legacy-peer-deps'], {
-  cwd: projectDir,
-  stdio: 'inherit',
-  shell: true,
+const installProcess = spawn(
+  'npm',
+  ['install', '--prefer-offline'],
+  { cwd: projectDir, stdio: 'pipe', shell: true }
+);
+
+installProcess.stdout.on('data', (data) => {
+  process.stdout.write(data);
+});
+
+installProcess.stderr.on('data', (data) => {
+  process.stderr.write(data);
 });
 
 installProcess.on('close', (code) => {
   if (code === 0) {
-    console.log('');
-    console.log('Project created successfully!');
-    console.log('');
-    console.log('To get started:');
-    console.log(`  cd ${projectName}`);
-    console.log('  npm run dev');
+    installSpinner.succeed(chalk.green('✓ Dependencies installed'));
+    console.log();
+    console.log(chalk.bgGreen.white(' DONE '));
+    console.log();
+    console.log(chalk.bold('Next steps:'));
+    console.log(chalk.gray('─'.repeat(35)));
+    console.log(chalk.cyan('  cd ') + chalk.white(projectName));
+    console.log(chalk.cyan('  npm run dev'));
+    console.log(chalk.gray('─'.repeat(35)));
   } else {
-    console.error('Failed to install dependencies.');
+    installSpinner.fail(chalk.red('Failed to install dependencies'));
     process.exit(1);
   }
 });

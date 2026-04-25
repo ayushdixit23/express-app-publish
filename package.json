@@ -1,6 +1,6 @@
 {
   "name": "create-express-mongodb-ts-starter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Scaffold a new Express + MongoDB + TypeScript project",
   "main": "bin/index.js",
   "bin": {
@@ -23,5 +23,9 @@
   "license": "MIT",
   "engines": {
     "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "ora": "^9.4.0"
   }
 }
