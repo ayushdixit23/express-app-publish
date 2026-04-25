@@ -1,12 +1,9 @@
-import fs from 'fs';
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { spawn } from 'child_process';
-import chalk from 'chalk';
-import ora from 'ora';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+#!/usr/bin/env node
+const fs = require('fs');
+const path = require('path');
+const { spawn } = require('child_process');
+const chalk = require('chalk');
+const ora = require('ora');
 
 const projectName = process.argv[2];
 
@@ -67,8 +64,10 @@ for (const file of dotFilesToRename) {
 
 const packageJsonPath = path.join(projectDir, 'package.json');
 const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf-8'));
+
 packageJson.name = projectName;
 packageJson.description = `Express + MongoDB + TypeScript starter - ${projectName}`;
+
 fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
 
 const installSpinner = ora(chalk.cyan('Installing dependencies...')).start();
