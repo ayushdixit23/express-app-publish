@@ -64,13 +64,13 @@ export const listPosts = (req: Request, res: Response): Response => {
 };
 
 export const removeUser = (req: Request, res: Response): Response => {
-  const id = Number.parseInt(req.params.id, 10);
+  const id = Number.parseInt(req.params.id as string, 10);
   userService.deleteUser(id);
   return new SuccessResponse(`User with ID ${id} deleted successfully`, { id }).send(req, res);
 };
 
 export const editUser = (req: Request, res: Response): Response => {
-  const id = Number.parseInt(req.params.id, 10);
+  const id = Number.parseInt(req.params.id as string, 10);
   const updatedUser = userService.updateUser(id, req.body);
   return new SuccessResponse("User updated successfully", updatedUser).send(req, res);
 };
