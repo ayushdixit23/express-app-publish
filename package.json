@@ -1,6 +1,6 @@
 {
   "name": "create-express-mongodb-ts-starter",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Scaffold a new Express + MongoDB + TypeScript project",
   "main": "bin/index.js",
   "bin": {
