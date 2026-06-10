@@ -1,4 +1,5 @@
 import cors, { CorsOptions } from "cors";
+import { RequestHandler } from "express";
 import { ALLOWED_ORIGINS } from "../../config/env.js";
 
 const corsOptions: CorsOptions = {
@@ -14,4 +15,4 @@ const corsOptions: CorsOptions = {
   credentials: true,
 };
 
-export const corsMiddleware = () => cors(corsOptions);
+export const corsMiddleware = (): RequestHandler => cors(corsOptions);

@@ -1,5 +1,4 @@
 import compression from "compression";
+import { RequestHandler } from "express";
 
-export const compressionMiddleware = () => {
-  return compression();
-};
+export const compressionMiddleware = (): RequestHandler => compression();

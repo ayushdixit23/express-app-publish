@@ -1,6 +1,7 @@
 import helmet from "helmet";
+import { RequestHandler } from "express";
 
-export const helmetMiddleware = () =>
+export const helmetMiddleware = (): RequestHandler =>
   helmet({
     hsts: {
       maxAge: 31536000,

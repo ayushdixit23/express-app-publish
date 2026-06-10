@@ -5,15 +5,24 @@ A CLI tool to scaffold a ready-to-use Express + MongoDB + TypeScript application
 ## Quick Start
 
 ```bash
+# npm
 npx create-express-mongodb-ts-starter my-app
-cd my-app
-npm run dev
+
+# yarn
+yarn create express-mongodb-ts-starter my-app
+
+# pnpm
+pnpm create express-mongodb-ts-starter my-app
+
+# bun
+bun create express-mongodb-ts-starter my-app
 ```
 
-Or use npm create:
+Then:
 
 ```bash
-npm create express-mongodb-ts-starter my-app
+cd my-app
+npm run dev     # or: yarn dev / pnpm dev / bun dev
 ```
 
 ## What You Get
@@ -69,10 +78,10 @@ my-app/
 ## Commands
 
 ```bash
-npm run dev      # Development server (with nodemon)
-npm run build   # Compile TypeScript
-npm start       # Production server
-npm run lint   # ESLint check
+npm run dev     # or: yarn dev / pnpm dev / bun dev
+npm run build   # or: yarn build / pnpm build / bun build
+npm start       # or: yarn start / pnpm start / bun start
+npm run lint    # or: yarn lint / pnpm lint / bun lint
 ```
 
 ## Environment Variables
