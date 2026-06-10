@@ -18,10 +18,11 @@ pnpm create express-mongodb-ts-starter my-app
 bun create express-mongodb-ts-starter my-app
 ```
 
-Then:
+Then install dependencies and start the dev server:
 
 ```bash
 cd my-app
+npm install     # or: yarn install / pnpm install / bun install
 npm run dev     # or: yarn dev / pnpm dev / bun dev
 ```
 

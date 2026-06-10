@@ -68,9 +68,25 @@ test_pm() {
     return
   fi
 
-  # 4. Lockfile cleanup (non-npm PMs should remove package-lock.json)
-  if [ "$pm" != "npm" ] && [ -f "package-lock.json" ]; then
-    echo -e "  ${RED}✗ package-lock.json not removed for ${pm}${NC}"
+  # 4. No lockfiles shipped in scaffold
+  local lockfiles=""
+  for lf in package-lock.json yarn.lock pnpm-lock.yaml bun.lockb; do
+    [ -f "$lf" ] && lockfiles="$lockfiles $lf"
+  done
+  if [ -n "$lockfiles" ]; then
+    echo -e "  ${RED}✗ Lockfiles present after scaffold:$lockfiles${NC}"
+    FAIL=$((FAIL + 1))
+    return
+  fi
+
+  # 4b. PM-specific config only for matching PM
+  if [ "$pm" = "pnpm" ] && [ ! -f "pnpm-workspace.yaml" ]; then
+    echo -e "  ${RED}✗ pnpm-workspace.yaml missing for pnpm scaffold${NC}"
+    FAIL=$((FAIL + 1))
+    return
+  fi
+  if [ "$pm" != "pnpm" ] && [ -f "pnpm-workspace.yaml" ]; then
+    echo -e "  ${RED}✗ pnpm-workspace.yaml should not exist for ${pm} scaffold${NC}"
     FAIL=$((FAIL + 1))
     return
   fi
