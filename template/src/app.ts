@@ -22,6 +22,8 @@ const createApp = (): express.Application => {
 
   app.use(requestTimeout);
 
+  app.use(corsMiddleware());
+
   app.use(helmetMiddleware());
 
   app.use(traceIdMiddleware);
@@ -39,11 +41,6 @@ const createApp = (): express.Application => {
 
   if (NODE_ENV === "production") {
     app.use(securityMonitor);
-  }
-
-  app.use(corsMiddleware());
-
-  if (NODE_ENV === "production") {
     app.set("trust proxy", 1);
   }
 

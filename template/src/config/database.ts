@@ -45,12 +45,6 @@ mongoose.connection.on("reconnected", () => {
   logger.info("Mongoose reconnected to MongoDB");
 });
 
-process.on("SIGINT", async () => {
-  await mongoose.connection.close();
-  logger.warn("Mongoose connection closed due to application termination");
-  process.exit(0);
-});
-
 export const disconnectDb = async (): Promise<void> => {
   try {
     await mongoose.connection.close();

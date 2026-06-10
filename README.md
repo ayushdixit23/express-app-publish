@@ -72,7 +72,7 @@ my-app/
 - **Validation**: Request body validation with Zod
 - **Error Handling**: Custom errors, error codes, proper HTTP responses
 - **Logging**: Request/response logging with Pino
-- **API Docs**: Swagger UI at `/api/docs`
+- **API Docs**: Swagger UI at `/api-docs`
 - **Health Check**: Route at `/health`
 - **Graceful Shutdown**: Clean process termination
 
@@ -87,16 +87,15 @@ npm run lint    # or: yarn lint / pnpm lint / bun lint
 
 ## Environment Variables
 
-Copy `.env.example` to `.env`:
+Copy `env.example` to `.env`:
 
 ```
-PORT=3000
+PORT=5001
 NODE_ENV=development
-MONGODB_URI=mongodb://localhost:27017/express-app
-LOG_LEVEL=debug
-CORS_ORIGIN=http://localhost:3001
+MONGO_URI=mongodb://localhost:27017/express-app
+ALLOWED_ORIGINS=http://localhost:3000,http://localhost:3001
 RATE_LIMIT_WINDOW_MS=900000
-RATE_LIMIT_MAX_REQUESTS=100
+RATE_LIMIT_MAX_REQUESTS=400
 ```
 
 ## License

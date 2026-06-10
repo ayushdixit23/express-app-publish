@@ -15,7 +15,7 @@ export const requestTimeout = (
       const error = new AppError(
         "Request timeout after 60 seconds",
         408,
-        ERROR_CODES.TOO_MANY_REQUESTS
+        ERROR_CODES.REQUEST_TIMEOUT
       );
       next(error);
     }
